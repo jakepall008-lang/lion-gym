@@ -1,0 +1,3162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIONS GYM | Premium Fitness Center - Kalanki, Kathmandu</title>
+    <meta name="description" content="LIONS GYM - Nepal's premier fitness destination in Kalanki, Kathmandu. World-class equipment, certified trainers, and luxury facilities.">
+    <meta name="keywords" content="gym, fitness, Kathmandu, Kalanki, Nepal, workout, personal training, CrossFit, powerlifting">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --charcoal: #141414;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #2a2a2a;
+            --light-gray: #888;
+            --white: #ffffff;
+            --gold: #D4AF37;
+            --gold-light: #F4D03F;
+            --red: #DC2626;
+            --red-dark: #991B1B;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 3px;
+            background: var(--dark-gray);
+            margin-top: 20px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--red));
+            animation: loadProgress 2s ease-in-out forwards;
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .logo i {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: var(--black);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--black) 0%, var(--charcoal) 50%, #1f1f1f 100%);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80') center/cover;
+            opacity: 0.3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.9) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: var(--black);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid var(--white);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 3rem;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            z-index: 2;
+            padding: 0 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            color: var(--light-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .section-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--red));
+            margin: 1.5rem auto;
+            border-radius: 3px;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--charcoal);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(220, 38, 38, 0.2));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--gold), var(--red));
+            color: var(--white);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--white);
+        }
+
+        .service-card p {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--black);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 0.3rem 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            letter-spacing: 1px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-header {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-header .price {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .pricing-header .price span {
+            font-size: 1rem;
+            color: var(--light-gray);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            color: var(--light-gray);
+        }
+
+        .pricing-features li i {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: var(--black);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* BMI Calculator */
+        .bmi-section {
+            background: linear-gradient(135deg, var(--charcoal), var(--dark-gray));
+        }
+
+        .bmi-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .bmi-form {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .bmi-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--medium-gray);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .bmi-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--dark-gray);
+            border-radius: 16px;
+            text-align: center;
+            display: none;
+        }
+
+        .bmi-result.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .bmi-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .bmi-status {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .bmi-info {
+            margin-top: 3rem;
+        }
+
+        .bmi-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .bmi-info p {
+            color: var(--light-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .bmi-chart {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .bmi-chart-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+        }
+
+        .bmi-chart-row:last-child {
+            border-bottom: none;
+        }
+
+        .bmi-chart-row span:first-child {
+            color: var(--light-gray);
+        }
+
+        .bmi-chart-row span:last-child {
+            font-weight: 600;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--charcoal);
+            overflow: hidden;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 1rem;
+        }
+
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: 'Oswald', sans-serif;
+            font-size: 8rem;
+            color: var(--gold);
+            opacity: 0.2;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-rating {
+            color: var(--gold);
+            font-size: 1rem;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--medium-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--gold);
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--black);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 250px;
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            z-index: 2;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h4 {
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .gallery-caption p {
+            font-size: 0.85rem;
+            color: var(--gold);
+        }
+
+        /* Trainers Section */
+        .trainers {
+            background: var(--charcoal);
+        }
+
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .trainer-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .trainer-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .trainer-card:hover .trainer-img {
+            transform: scale(1.05);
+        }
+
+        .trainer-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .trainer-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .trainer-info p {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .trainer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .trainer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .trainer-social a:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Instagram Section */
+        .instagram {
+            background: linear-gradient(135deg, var(--black), var(--charcoal));
+        }
+
+        .insta-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .insta-header i {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .insta-header h2 {
+            font-size: 2.5rem;
+        }
+
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .insta-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .insta-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .insta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .insta-item:hover .insta-overlay {
+            opacity: 1;
+        }
+
+        .insta-overlay i {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .insta-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .insta-stat {
+            text-align: center;
+        }
+
+        .insta-stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .insta-stat-label {
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            text-transform: uppercase;
+        }
+
+        .insta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(220, 40, 67, 0.3);
+        }
+
+        .insta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(220, 40, 67, 0.5);
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: var(--charcoal);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active {
+            border-color: var(--gold);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 2rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: var(--light-gray);
+            line-height: 1.7;
+        }
+
+        /* Location Section */
+        .location {
+            background: var(--black);
+        }
+
+        .location-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+        }
+
+        .location-info {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .location-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-detail i {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .location-detail div h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .location-detail div p {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+        }
+
+        .location-map {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border: none;
+            filter: grayscale(100%) invert(92%) contrast(83%);
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            background: var(--gold);
+            color: var(--black);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .map-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--charcoal), var(--dark-gray));
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--medium-gray);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .newsletter-box {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .newsletter-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-box p {
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.2rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--medium-gray);
+            border-radius: 50px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .newsletter-form button {
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Chatbot */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--red));
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .chatbot-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            max-height: 500px;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .chatbot-container.active {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--gold), var(--red));
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-header h4 {
+            font-size: 1rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chatbot-header h4 i {
+            font-size: 1.2rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 350px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.bot {
+            background: var(--dark-gray);
+            color: var(--white);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-message.user {
+            background: linear-gradient(135deg, var(--gold), #B8941F);
+            color: var(--black);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            font-weight: 500;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid var(--glass-border);
+            gap: 0.5rem;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--medium-gray);
+            border-radius: 50px;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .chatbot-input button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: none;
+            color: var(--black);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--black);
+            border-top: 1px solid var(--glass-border);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand h3 span {
+            color: var(--gold);
+        }
+
+        .footer-brand p {
+            color: var(--light-gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+        }
+
+        .footer-social a:hover {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--gold), var(--red));
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            animation: moveStripes 20s linear infinite;
+        }
+
+        @keyframes moveStripes {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cta-banner .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-banner p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--black);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Transformation Section */
+        .transformation {
+            background: var(--black);
+        }
+
+        .transformation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .transformation-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .transformation-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .transformation-img {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+        }
+
+        .transformation-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .transformation-img .before, .transformation-img .after {
+            position: relative;
+        }
+
+        .transformation-img .before::after, .transformation-img .after::after {
+            content: 'BEFORE';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .transformation-img .after::after {
+            content: 'AFTER';
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .transformation-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .transformation-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .transformation-info p {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: var(--charcoal);
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .comparison-table th {
+            background: rgba(212, 175, 55, 0.1);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td i.fa-check {
+            color: var(--gold);
+        }
+
+        .comparison-table td i.fa-xmark {
+            color: var(--red);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-item.wide {
+                grid-column: span 2;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .insta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                z-index: 1000;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+            .nav-cta {
+                display: none;
+            }
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .bmi-container,
+            .location-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item.wide,
+            .gallery-item.tall {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .chatbot-container {
+                width: calc(100vw - 2rem);
+                right: -1rem;
+            }
+            .insta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .pricing-card.featured {
+                transform: none;
+            }
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+            .insta-stats {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">LIONS <span>GYM</span></div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-dumbbell"></i>
+                LIONS <span>GYM</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#trainers">Trainers</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym." class="nav-cta" target="_blank">
+                <i class="fab fa-whatsapp"></i> Join Now
+            </a>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Nepal's Premier Fitness Destination</div>
+            <h1>Unleash Your <br>Inner Beast</h1>
+            <p>Experience world-class training facilities, elite coaches, and a community that pushes you beyond your limits. Your transformation starts here at LIONS GYM.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym." class="btn-primary" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Start Your Journey
+                </a>
+                <a href="#services" class="btn-secondary">
+                    <i class="fas fa-play"></i> Explore Services
+                </a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number" data-target="1500">0</span>
+                <span class="stat-label">Members</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="25">0</span>
+                <span class="stat-label">Expert Trainers</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="50">0</span>
+                <span class="stat-label">Weekly Classes</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="5">0</span>
+                <span class="stat-label">Years Active</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Our Premium Services</h2>
+                <div class="section-line"></div>
+                <p>Comprehensive fitness solutions tailored to transform your body and mind</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-heart-pulse"></i></div>
+                    <h3>Aerobics</h3>
+                    <p>High-energy cardio sessions that boost endurance and burn calories with rhythmic movements.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-bicycle"></i></div>
+                    <h3>Cycling</h3>
+                    <p>Indoor cycling classes with immersive lighting and music for an intense calorie-burning workout.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-apple-whole"></i></div>
+                    <h3>Nutrition Consulting</h3>
+                    <p>Personalized diet plans and nutritional guidance from certified experts for optimal results.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-user-ninja"></i></div>
+                    <h3>Personal Training</h3>
+                    <p>One-on-one sessions with elite trainers to maximize your potential and achieve goals faster.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-users"></i></div>
+                    <h3>Private Lessons</h3>
+                    <p>Exclusive training sessions designed around your schedule and specific fitness objectives.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-child-reaching"></i></div>
+                    <h3>Youth Classes</h3>
+                    <p>Fun and engaging fitness programs designed specifically for teenagers and young adults.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-dumbbell"></i></div>
+                    <h3>Weight Training</h3>
+                    <p>State-of-the-art equipment and guided strength programs to build muscle and power.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Cardio</h3>
+                    <p>Advanced cardio machines and HIIT zones designed to improve heart health and stamina.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-weight-hanging"></i></div>
+                    <h3>Powerlifting</h3>
+                    <p>Professional powerlifting equipment and coaching for serious strength athletes.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-fire"></i></div>
+                    <h3>CrossFit</h3>
+                    <p>High-intensity functional training that combines weightlifting, gymnastics, and cardio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Membership Plans</h2>
+                <div class="section-line"></div>
+                <p>Choose the plan that fits your fitness goals and lifestyle</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="pricing-header">
+                        <h3>Starter Plan</h3>
+                        <div class="price">Rs. 3,500<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Gym Access (6AM - 10PM)</li>
+                        <li><i class="fas fa-check"></i> Basic Equipment Usage</li>
+                        <li><i class="fas fa-check"></i> Locker Room Access</li>
+                        <li><i class="fas fa-check"></i> 2 Group Classes/Week</li>
+                        <li><i class="fas fa-check"></i> Fitness Assessment</li>
+                        <li><i class="fas fa-xmark"></i> Personal Training</li>
+                        <li><i class="fas fa-xmark"></i> Nutrition Plan</li>
+                    </ul>
+                    <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20Starter%20Plan." class="btn-glow" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Get Started
+                    </a>
+                </div>
+                <div class="pricing-card featured reveal">
+                    <div class="pricing-header">
+                        <h3>Pro Plan</h3>
+                        <div class="price">Rs. 5,500<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 24/7 Gym Access</li>
+                        <li><i class="fas fa-check"></i> All Equipment Access</li>
+                        <li><i class="fas fa-check"></i> Premium Locker</li>
+                        <li><i class="fas fa-check"></i> Unlimited Group Classes</li>
+                        <li><i class="fas fa-check"></i> 2 PT Sessions/Month</li>
+                        <li><i class="fas fa-check"></i> Basic Nutrition Plan</li>
+                        <li><i class="fas fa-xmark"></i> Spa & Sauna</li>
+                    </ul>
+                    <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20Pro%20Plan." class="btn-glow" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Get Started
+                    </a>
+                </div>
+                <div class="pricing-card reveal">
+                    <div class="pricing-header">
+                        <h3>Elite Athlete</h3>
+                        <div class="price">Rs. 8,500<span>/month</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 24/7 Premium Access</li>
+                        <li><i class="fas fa-check"></i> VIP Equipment Priority</li>
+                        <li><i class="fas fa-check"></i> Private Locker + Towel</li>
+                        <li><i class="fas fa-check"></i> Unlimited Everything</li>
+                        <li><i class="fas fa-check"></i> 8 PT Sessions/Month</li>
+                        <li><i class="fas fa-check"></i> Custom Nutrition Plan</li>
+                        <li><i class="fas fa-check"></i> Spa & Sauna Access</li>
+                    </ul>
+                    <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20Elite%20Athlete%20Plan." class="btn-glow" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Plan Comparison</h2>
+                <div class="section-line"></div>
+                <p>See what's included in each membership tier</p>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="comparison-table reveal">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Starter</th>
+                            <th>Pro</th>
+                            <th>Elite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gym Access Hours</td>
+                            <td>6AM - 10PM</td>
+                            <td>24/7</td>
+                            <td>24/7 VIP</td>
+                        </tr>
+                        <tr>
+                            <td>Group Classes</td>
+                            <td><i class="fas fa-check"></i> Limited</td>
+                            <td><i class="fas fa-check"></i> Unlimited</td>
+                            <td><i class="fas fa-check"></i> Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Personal Training</td>
+                            <td><i class="fas fa-xmark"></i></td>
+                            <td><i class="fas fa-check"></i> 2/Month</td>
+                            <td><i class="fas fa-check"></i> 8/Month</td>
+                        </tr>
+                        <tr>
+                            <td>Nutrition Plan</td>
+                            <td><i class="fas fa-xmark"></i></td>
+                            <td><i class="fas fa-check"></i> Basic</td>
+                            <td><i class="fas fa-check"></i> Custom</td>
+                        </tr>
+                        <tr>
+                            <td>Spa & Sauna</td>
+                            <td><i class="fas fa-xmark"></i></td>
+                            <td><i class="fas fa-xmark"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Parking</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i> Priority</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- BMI Calculator -->
+    <section class="bmi-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>BMI Calculator</h2>
+                <div class="section-line"></div>
+                <p>Check your Body Mass Index and get personalized recommendations</p>
+            </div>
+            <div class="bmi-container">
+                <div class="bmi-form reveal">
+                    <h3>Calculate Your BMI</h3>
+                    <div class="form-group">
+                        <label>Height (cm)</label>
+                        <input type="number" id="height" placeholder="e.g. 175" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="e.g. 70" min="1">
+                    </div>
+                    <button class="btn-primary" onclick="calculateBMI()" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-calculator"></i> Calculate BMI
+                    </button>
+                    <div class="bmi-result" id="bmiResult">
+                        <div class="bmi-value" id="bmiValue">0</div>
+                        <div class="bmi-status" id="bmiStatus">Normal</div>
+                    </div>
+                </div>
+                <div class="bmi-info reveal">
+                    <h3>Understanding Your BMI</h3>
+                    <p>Body Mass Index (BMI) is a measure of body fat based on height and weight. Use this as a starting point for your fitness journey at LIONS GYM.</p>
+                    <div class="bmi-chart">
+                        <div class="bmi-chart-row">
+                            <span>Underweight</span>
+                            <span style="color: #3498db;">&lt; 18.5</span>
+                        </div>
+                        <div class="bmi-chart-row">
+                            <span>Normal Weight</span>
+                            <span style="color: #2ecc71;">18.5 - 24.9</span>
+                        </div>
+                        <div class="bmi-chart-row">
+                            <span>Overweight</span>
+                            <span style="color: #f39c12;">25 - 29.9</span>
+                        </div>
+                        <div class="bmi-chart-row">
+                            <span>Obese</span>
+                            <span style="color: #e74c3c;">≥ 30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers Section -->
+    <section class="trainers" id="trainers">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Elite Trainers</h2>
+                <div class="section-line"></div>
+                <p>Meet our certified fitness professionals dedicated to your success</p>
+            </div>
+            <div class="trainers-grid">
+                <div class="trainer-card reveal">
+                    <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=400&q=80" alt="Trainer" class="trainer-img">
+                    <div class="trainer-info">
+                        <h4>Rajesh Sharma</h4>
+                        <p>Head Strength Coach</p>
+                        <div class="trainer-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trainer-card reveal">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80" alt="Trainer" class="trainer-img">
+                    <div class="trainer-info">
+                        <h4>Priya Patel</h4>
+                        <p>CrossFit Specialist</p>
+                        <div class="trainer-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trainer-card reveal">
+                    <img src="https://images.unsplash.com/photo-1597347343908-2937e7dcc560?w=400&q=80" alt="Trainer" class="trainer-img">
+                    <div class="trainer-info">
+                        <h4>Amit Gurung</h4>
+                        <p>Powerlifting Coach</p>
+                        <div class="trainer-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="trainer-card reveal">
+                    <img src="https://images.unsplash.com/photo-1611672585731-fa1060a7a3c2?w=400&q=80" alt="Trainer" class="trainer-img">
+                    <div class="trainer-info">
+                        <h4>Sunita Rai</h4>
+                        <p>Yoga & Aerobics</p>
+                        <div class="trainer-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformation Section -->
+    <section class="transformation">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Transformations</h2>
+                <div class="section-line"></div>
+                <p>Real results from real members of the LIONS GYM family</p>
+            </div>
+            <div class="transformation-grid">
+                <div class="transformation-card reveal">
+                    <div class="transformation-img">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Before">
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80" alt="After">
+                        </div>
+                    </div>
+                    <div class="transformation-info">
+                        <h4>Bikram Thapa</h4>
+                        <p>Lost 25kg in 8 months</p>
+                    </div>
+                </div>
+                <div class="transformation-card reveal">
+                    <div class="transformation-img">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=400&q=80" alt="Before">
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80" alt="After">
+                        </div>
+                    </div>
+                    <div class="transformation-info">
+                        <h4>Anjali Sharma</h4>
+                        <p>Gained 8kg muscle in 6 months</p>
+                    </div>
+                </div>
+                <div class="transformation-card reveal">
+                    <div class="transformation-img">
+                        <div class="before">
+                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80" alt="Before">
+                        </div>
+                        <div class="after">
+                            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&q=80" alt="After">
+                        </div>
+                    </div>
+                    <div class="transformation-info">
+                        <h4>Prakash Joshi</h4>
+                        <p>Complete body recomposition</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Member Reviews</h2>
+                <div class="section-line"></div>
+                <p>Hear what our members say about their experience at LIONS GYM</p>
+            </div>
+            <div class="testimonial-slider reveal">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"This gym is 10/10. With huge parking space, friendly trainer and staffs, clean washrooms, huge space to workout. They provide every facility that an athlete needs. If you are a beginner you can join without hesitation. Trainers are friendly and well certified they provide proper guidance and also price is reasonable."</p>
+                            <div class="testimonial-author">Poonam Chaudhary</div>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"One of the best gyms I've ever visited! The gym is well-equipped with top-quality machines and equipment that are perfect for all kinds of workouts. Whether you're into strength training or cardio, everything you need is available and in excellent condition. The atmosphere is motivating, and it's clear they've invested in maintaining a high standard."</p>
+                            <div class="testimonial-author">Aman Shakya</div>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"Great gym with plenty of parking and a spacious workout area. The equipment is well-maintained, and the trainers are experienced, friendly, and always ready to help. Highly recommend!"</p>
+                            <div class="testimonial-author">Kaushal Adhikari</div>
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <button class="testimonial-btn" onclick="prevTestimonial()"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial-btn" onclick="nextTestimonial()"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="testimonial-dots">
+                    <div class="dot active" onclick="goToTestimonial(0)"></div>
+                    <div class="dot" onclick="goToTestimonial(1)"></div>
+                    <div class="dot" onclick="goToTestimonial(2)"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Facility Gallery</h2>
+                <div class="section-line"></div>
+                <p>Take a virtual tour of our premium fitness facility</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item tall reveal">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Gym Interior">
+                    <div class="gallery-caption">
+                        <h4>Main Training Floor</h4>
+                        <p>Spacious & Modern</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" alt="Weight Training">
+                    <div class="gallery-caption">
+                        <h4>Free Weights Zone</h4>
+                        <p>Professional Equipment</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80" alt="CrossFit">
+                    <div class="gallery-caption">
+                        <h4>CrossFit Arena</h4>
+                        <p>Functional Training</p>
+                    </div>
+                </div>
+                <div class="gallery-item wide reveal">
+                    <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" alt="Cardio Zone">
+                    <div class="gallery-caption">
+                        <h4>Cardio Zone</h4>
+                        <p>Latest Machines</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=600&q=80" alt="Personal Training">
+                    <div class="gallery-caption">
+                        <h4>Personal Training</h4>
+                        <p>One-on-One Sessions</p>
+                    </div>
+                </div>
+                <div class="gallery-item tall reveal">
+                    <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?w=600&q=80" alt="Locker Room">
+                    <div class="gallery-caption">
+                        <h4>Premium Lockers</h4>
+                        <p>Clean & Secure</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1540496905036-5937c10f53bb?w=600&q=80" alt="Group Class">
+                    <div class="gallery-caption">
+                        <h4>Group Classes</h4>
+                        <p>High Energy Workouts</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=600&q=80" alt="Reception">
+                    <div class="gallery-caption">
+                        <h4>Reception</h4>
+                        <p>Welcome Desk</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section class="instagram">
+        <div class="container">
+            <div class="insta-header reveal">
+                <i class="fab fa-instagram"></i>
+                <h2>Follow Us on Instagram</h2>
+            </div>
+            <div class="insta-stats reveal">
+                <div class="insta-stat">
+                    <div class="insta-stat-number">12.5K</div>
+                    <div class="insta-stat-label">Followers</div>
+                </div>
+                <div class="insta-stat">
+                    <div class="insta-stat-number">850+</div>
+                    <div class="insta-stat-label">Posts</div>
+                </div>
+                <div class="insta-stat">
+                    <div class="insta-stat-number">50+</div>
+                    <div class="insta-stat-label">Reels</div>
+                </div>
+            </div>
+            <div class="insta-grid reveal">
+                <div class="insta-item">
+                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&q=80" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=300&q=80" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&q=80" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=80" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=300&q=80" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=300&q=80" alt="Instagram">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+            </div>
+            <div style="text-align: center;" class="reveal">
+                <a href="https://www.instagram.com/lions.gym51/?hl=en" class="insta-btn" target="_blank">
+                    <i class="fab fa-instagram"></i> @lions.gym51
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Frequently Asked Questions</h2>
+                <div class="section-line"></div>
+                <p>Find answers to common questions about LIONS GYM</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item reveal">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>What are the gym operating hours?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We are open from 6:00 AM to 10:00 PM daily. Pro and Elite members get 24/7 access with their premium key cards.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Do you offer personal training?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We have certified personal trainers available. Pro members get 2 sessions per month, while Elite members enjoy 8 sessions monthly.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Is there parking available?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we have ample parking space available for all members at no additional cost. Elite members get priority parking spots.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Can beginners join LIONS GYM?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We welcome all fitness levels. Our friendly trainers provide proper guidance and customized workout plans for beginners.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>What payment methods do you accept?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept cash, bank transfer, eSewa, Khalti, and all major credit/debit cards. Monthly and quarterly payment options are available.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Do you provide nutrition plans?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our Pro members receive basic nutrition guidance, while Elite members get fully customized meal plans from our nutrition consultants.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Find Us</h2>
+                <div class="section-line"></div>
+                <p>Visit our state-of-the-art facility in Kalanki, Kathmandu</p>
+            </div>
+            <div class="location-container">
+                <div class="location-info reveal">
+                    <h3>Visit LIONS GYM</h3>
+                    <div class="location-detail">
+                        <i class="fas fa-location-dot"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Kalanki, Kathmandu, Nepal</p>
+                        </div>
+                    </div>
+                    <div class="location-detail">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone / WhatsApp</h4>
+                            <p>9860802648</p>
+                        </div>
+                    </div>
+                    <div class="location-detail">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>Mon-Sun: 6:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="location-detail">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@lionsgym.com.np</p>
+                        </div>
+                    </div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Lions+Gym+Kalanki+Kathmandu" class="map-btn" target="_blank">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                </div>
+                <div class="location-map reveal">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.1234567890123!2d85.27812345678901!3d27.694123456789012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDQxJzM4LjkiTiA4NcKwMTYnNDEuMyJF!5e0!3m2!1sen!2snp!4v1234567890123!5m2!1sen!2snp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Get In Touch</h2>
+                <div class="section-line"></div>
+                <p>Have questions? Reach out to us and we'll get back to you</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-form reveal">
+                    <h3>Send a Message</h3>
+                    <form onsubmit="handleContact(event)">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="98XXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea required placeholder="How can we help you?"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="newsletter-box reveal">
+                    <h3>Join Our Newsletter</h3>
+                    <p>Get fitness tips, workout plans, and exclusive offers delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                    </form>
+                    <div style="margin-top: 2rem; text-align: left;">
+                        <div class="location-detail" style="margin-bottom: 1rem;">
+                            <i class="fas fa-phone" style="color: var(--gold);"></i>
+                            <div>
+                                <h4 style="font-size: 0.9rem;">WhatsApp</h4>
+                                <p style="font-size: 0.85rem;">9860802648</p>
+                            </div>
+                        </div>
+                        <div class="location-detail">
+                            <i class="fab fa-instagram" style="color: var(--gold);"></i>
+                            <div>
+                                <h4 style="font-size: 0.9rem;">Instagram</h4>
+                                <p style="font-size: 0.85rem;">@lions.gym51</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>Ready to Transform Your Life?</h2>
+            <p>Join LIONS GYM today and get 20% off your first month. Limited time offer for new members!</p>
+            <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym.%20I%20saw%20the%2020%25%20discount%20offer." class="btn-white" target="_blank">
+                <i class="fab fa-whatsapp"></i> Claim Your Offer
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>LIONS <span>GYM</span></h3>
+                    <p>Nepal's premier fitness destination. Transform your body, elevate your mind, and join a community of champions.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/lions.gym51/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/9779860802648" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#trainers">Trainers</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Personal Training</a></li>
+                        <li><a href="#services">CrossFit</a></li>
+                        <li><a href="#services">Powerlifting</a></li>
+                        <li><a href="#services">Nutrition</a></li>
+                        <li><a href="#services">Yoga Classes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:9860802648">9860802648</a></li>
+                        <li><a href="https://wa.me/9779860802648">WhatsApp</a></li>
+                        <li><a href="#location">Kalanki, Kathmandu</a></li>
+                        <li><a href="mailto:info@lionsgym.com.np">info@lionsgym.com.np</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LIONS GYM. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: var(--red);"></i> in Kathmandu, Nepal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+        <div class="chatbot-container" id="chatbotContainer">
+            <div class="chatbot-header">
+                <h4><i class="fas fa-robot"></i> LIONS AI Assistant</h4>
+                <button class="chatbot-close" onclick="toggleChatbot()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chat-message bot">Hello! I'm your LIONS GYM AI assistant. How can I help you today? You can ask about memberships, services, or book a tour!</div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message..." onkeypress="handleChatKey(event)">
+                <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 100;
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 20);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        };
+
+        // Intersection Observer for counters
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        });
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Testimonial Slider
+        let currentTestimonial = 0;
+        const testimonialTrack = document.getElementById('testimonialTrack');
+        const dots = document.querySelectorAll('.dot');
+        const totalTestimonials = 3;
+
+        function updateTestimonial() {
+            testimonialTrack.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentTestimonial);
+            });
+        }
+
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+            updateTestimonial();
+        }
+
+        function prevTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+            updateTestimonial();
+        }
+
+        function goToTestimonial(index) {
+            currentTestimonial = index;
+            updateTestimonial();
+        }
+
+        // Auto slide testimonials
+        setInterval(nextTestimonial, 5000);
+
+        // FAQ Accordion
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // BMI Calculator
+        function calculateBMI() {
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const resultDiv = document.getElementById('bmiResult');
+            const valueDiv = document.getElementById('bmiValue');
+            const statusDiv = document.getElementById('bmiStatus');
+
+            if (height && weight) {
+                const heightInM = height / 100;
+                const bmi = (weight / (heightInM * heightInM)).toFixed(1);
+                valueDiv.textContent = bmi;
+                
+                let status = '';
+                let color = '';
+                if (bmi < 18.5) {
+                    status = 'Underweight';
+                    color = '#3498db';
+                } else if (bmi < 25) {
+                    status = 'Normal Weight';
+                    color = '#2ecc71';
+                } else if (bmi < 30) {
+                    status = 'Overweight';
+                    color = '#f39c12';
+                } else {
+                    status = 'Obese';
+                    color = '#e74c3c';
+                }
+                
+                statusDiv.textContent = status;
+                statusDiv.style.color = color;
+                valueDiv.style.color = color;
+                resultDiv.classList.add('active');
+            }
+        }
+
+        // Chatbot
+        function toggleChatbot() {
+            document.getElementById('chatbotContainer').classList.toggle('active');
+        }
+
+        function handleChatKey(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const messagesDiv = document.getElementById('chatbotMessages');
+            
+            // User message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user';
+            userMsg.textContent = message;
+            messagesDiv.appendChild(userMsg);
+            input.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Bot response
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-message bot';
+                botMsg.innerHTML = getBotResponse(message);
+                messagesDiv.appendChild(botMsg);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 600);
+        }
+
+        function getBotResponse(message) {
+            const lower = message.toLowerCase();
+            
+            if (lower.includes('price') || lower.includes('cost') || lower.includes('membership') || lower.includes('plan') || lower.includes('fee')) {
+                return "Our membership plans are:<br>• Starter: Rs. 3,500/month<br>• Pro: Rs. 5,500/month<br>• Elite: Rs. 8,500/month<br><br>Would you like to join? <a href='https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym.' target='_blank' style='color: var(--gold);'>Click here to chat on WhatsApp</a>";
+            }
+            if (lower.includes('hour') || lower.includes('time') || lower.includes('open') || lower.includes('close')) {
+                return "We're open daily from 6:00 AM to 10:00 PM. Pro and Elite members enjoy 24/7 access!";
+            }
+            if (lower.includes('location') || lower.includes('address') || lower.includes('where')) {
+                return "We're located at Kalanki, Kathmandu, Nepal. <a href='#location' style='color: var(--gold);'>Click here for directions</a>";
+            }
+            if (lower.includes('trainer') || lower.includes('coach') || lower.includes('personal')) {
+                return "We have 25+ certified trainers including specialists in CrossFit, Powerlifting, Yoga, and Nutrition. Personal training is included in Pro and Elite plans!";
+            }
+            if (lower.includes('service') || lower.includes('class') || lower.includes('offer') || lower.includes('activity')) {
+                return "We offer: Aerobics, Cycling, Nutrition Consulting, Personal Training, Private Lessons, Youth Classes, Weight Training, Cardio, Powerlifting, and CrossFit. Which one interests you?";
+            }
+            if (lower.includes('parking')) {
+                return "Yes! We have huge parking space available for all members at no extra cost.";
+            }
+            if (lower.includes('beginner') || lower.includes('new')) {
+                return "Absolutely! Beginners are welcome. Our friendly, certified trainers provide proper guidance to help you start your fitness journey confidently.";
+            }
+            if (lower.includes('contact') || lower.includes('phone') || lower.includes('whatsapp') || lower.includes('call')) {
+                return "You can reach us at 9860802648 (WhatsApp/Call). <a href='https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym.' target='_blank' style='color: var(--gold);'>Chat on WhatsApp now</a>";
+            }
+            if (lower.includes('name') || lower.includes('email') || lower.includes('phone number')) {
+                return "Thanks for sharing! Our team will contact you shortly. For immediate assistance, <a href='https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym.' target='_blank' style='color: var(--gold);'>message us on WhatsApp</a>";
+            }
+            if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
+                return "Hello! Welcome to LIONS GYM. I'm here to help with memberships, services, or any questions. What would you like to know?";
+            }
+            if (lower.includes('bmi') || lower.includes('body mass')) {
+                return "You can calculate your BMI using our BMI calculator on the website. Scroll up to find it, or I can help guide you!";
+            }
+            if (lower.includes('discount') || lower.includes('offer') || lower.includes('deal')) {
+                return "New members get 20% off their first month! Limited time offer. <a href='https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20want%20to%20join%20the%20gym.%20I%20saw%20the%2020%25%20discount%20offer.' target='_blank' style='color: var(--gold);'>Claim your offer on WhatsApp</a>";
+            }
+            
+            return "I'm not sure I understood that. I can help with:<br>• Membership plans & pricing<br>• Gym hours & location<br>• Services & classes<br>• Trainer information<br>• Contact details<br><br>For more help, <a href='https://wa.me/9779860802648?text=Hi%20Lions%20Gym,%20I%20have%20a%20question.' target='_blank' style='color: var(--gold);'>chat with us on WhatsApp</a> or call 9860802648.";
+        }
+
+        // Form handlers
+        function handleContact(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you within 24 hours. For immediate response, please WhatsApp us at 9860802648.');
+            event.target.reset();
+        }
+
+        function handleNewsletter(event) {
+            event.preventDefault();
+            alert('Thank you for subscribing! You will receive our latest fitness tips and offers soon.');
+            event.target.reset();
+        }
+
+        // GSAP Animations
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            gsap.from('.hero-badge', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 2.5
+            });
+            
+            gsap.from('.hero h1', {
+                opacity: 0,
+                y: 50,
+                duration: 1.2,
+                delay: 2.7
+            });
+            
+            gsap.from('.hero p', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 2.9
+            });
+            
+            gsap.from('.hero-buttons', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 3.1
+            });
+        }
+    </script>
+</body>
+</html>
